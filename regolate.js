@@ -24,8 +24,9 @@ function saveFile(fileName, save) {
 function modifyItems(itemName, newMass, newTemp) {
   const items = saveData.gameObjects.find(x => x.name === itemName);
   for (const item of items.gameObjects) {
-  if (newMass) {item.behaviors[1].templateData.Units = newMass;}
-  if (newTemp) {item.behaviors[1].templateData._Temperature = newTemp;}
+    var element = item.behaviors.find(x => x.name === "PrimaryElement");
+    if (newMass) {element.templateData.Units = newMass;}
+    if (newTemp) {element.templateData._Temperature = newTemp;}
   }
   console.log(`${itemName} Processed`)
 }
@@ -33,10 +34,19 @@ function modifyItems(itemName, newMass, newTemp) {
 function checkItems(itemName) {
   const items = saveData.gameObjects.find(x => x.name === itemName);
   for (const item of items.gameObjects) {
-    var mass = item.behaviors[1].templateData.Units;
-    var temp = item.behaviors[1].templateData._Temperature;
+    var element = item.behaviors.find(x => x.name === "PrimaryElement");
+    var mass = element.templateData.Units;
+    var temp = element.templateData._Temperature;
     console.log(`${itemName} Mass: ${mass}`);
     console.log(`${itemName} Temp: ${temp}`);
+  }
+}
+
+function printDataStructure(itemName) {
+  const items = saveData.gameObjects.find(x => x.name === itemName);
+  for (const item of items.gameObjects) {
+    console.log(`\n${itemName}`);
+    console.log(item.behaviors);
   }
 }
 
@@ -44,7 +54,14 @@ function checkItems(itemName) {
 const saveData = loadFile(savename);
 console.log("Save File Parsed");
 
-modifyItems("Regolith");
+modifyItems("Regolith", null, 10);
 checkItems("Regolith");
+modifyItems("BunkerTile", null, 100);
+checkItems("BunkerTile");
+modifyItems("ExteriorWall", null, 100);
+checkItems("ExteriorWall");
+modifyItems("SolarPanel", null, 100);
+checkItems("SolarPanel");
+//printDataStructure("ExteriorWall");
 
 //saveFile(`${savename}-pruned`, saveData);
