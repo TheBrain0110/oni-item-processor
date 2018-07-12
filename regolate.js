@@ -54,7 +54,7 @@ function printDataStructure(itemName) {
 const saveData = loadFile(savename);
 console.log("Save File Parsed");
 
-modifyItems("Regolith", null, 10);
+modifyItems("Regolith", 1, 10);
 checkItems("Regolith");
 modifyItems("BunkerTile", null, 100);
 checkItems("BunkerTile");
@@ -62,6 +62,10 @@ modifyItems("ExteriorWall", null, 100);
 checkItems("ExteriorWall");
 modifyItems("SolarPanel", null, 100);
 checkItems("SolarPanel");
-//printDataStructure("ExteriorWall");
+//printDataStructure("SolarPanel");
+modifyItems("Iron", null, 200)
+modifyItems("BunkerDoor", null, 100)
+modifyItems("GlassTile", null, 100)
+printDataStructure("BunkerDoor");
 
-//saveFile(`${savename}-pruned`, saveData);
+saveFile(`${savename}-pruned`, saveData);
